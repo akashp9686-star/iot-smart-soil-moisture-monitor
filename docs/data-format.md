@@ -1,31 +1,16 @@
-# Telemetry Data Format
+# ThingSpeak Data Format — Project 06
 
-When MQTT is enabled and the client is connected, the firmware publishes a JSON object to the topic configured by `MQTT_TOPIC`.
+The firmware writes two fields to ThingSpeak using the ESP-01 AT-command connection.
 
-| Key | Unit | Meaning |
+| ThingSpeak field | Unit | Meaning |
 |---|---|---|
-| `device` | text | Configured device identifier |
-| `uptime_ms` | milliseconds | ESP32 uptime at publication |
-| `voltage_v` | volts | RMS voltage value returned by the PZEM library |
-| `current_a` | amperes | Current value returned by the PZEM library |
-| `power_w` | watts | Active power value returned by the PZEM library |
-| `energy_kwh` | kilowatt-hours | Accumulated energy value returned by the PZEM library |
-| `frequency_hz` | hertz | Frequency value returned by the PZEM library |
-| `power_factor` | unitless | Power factor returned by the PZEM library |
+| Field 1 | A | Estimated RMS current |
+| Field 2 | VA | Estimated apparent power (RMS current × assumed nominal 230V) |
 
-Example payload shape (illustrative only):
-
-```json
-{
-  "device": "energy-meter-01",
-  "uptime_ms": 15000,
-  "voltage_v": 230.0,
-  "current_a": 0.42,
-  "power_w": 85.0,
-  "energy_kwh": 1.201,
-  "frequency_hz": 50.0,
-  "power_factor": 0.88
-}
+Illustrative example only:
+```text
+field1=0.420
+field2=96.6
 ```
 
-The example values are not measurements from a physical device. Consumers should validate incoming fields, timestamps/uptime, device identity and acceptable operating ranges.
+These are not measured readings. The firmware does not sample voltage waveform or power factor; Field 2 is not true active power in watts and must not be presented as such. Upload interval is configured to 30 seconds.
