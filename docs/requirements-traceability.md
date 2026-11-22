@@ -1,16 +1,12 @@
-# Requirements Traceability — Handbook Project 06
+# Requirements Traceability — Project 03
 
-| ID | Handbook requirement | Repository evidence | Status |
-|---|---|---|---|
-| R1 | Arduino Uno controller | `platformio.ini`, `src/main.cpp` | Implemented in source |
-| R2 | ACS712-20A current sensor | Analog input A1; RMS estimate | Implemented; calibration pending |
-| R3 | ESP8266 ESP-01 | SoftwareSerial D10/D11 and AT commands | Implemented; module test pending |
-| R4 | Logic-level conversion | Wiring guide: Uno TX to ESP-01 RX | Documented; inspect hardware |
-| R5 | 16x2 I2C LCD | SDA A4 / SCL A5 | Implemented; display test pending |
-| R6 | 10µF capacitor | Component inventory and wiring note | Exact placement to confirm from module schematic |
-| R7 | ThingSpeak upload | Field 1 current A; Field 2 estimated apparent VA | Implemented; live upload pending |
-| R8 | Safety documentation | `docs/safety.md` | Documented |
-| R9 | Reproducible Uno build | GitHub Actions workflow | Check latest run |
-| R10 | Honest validation record | `docs/testing.md` | Physical tests marked pending |
-
-Compilation does not establish physical compatibility, calibration, mains safety or cloud operation.
+| Handbook requirement | Repository implementation | Verification |
+|---|---|---|
+| Arduino Uno R3 | PlatformIO `uno` target | Hosted compile |
+| Analog soil sensor | A0 input in `src/main.cpp` | Hardware test pending |
+| ESP8266 ESP-01 via AT commands | SoftwareSerial D10/D11 and AT command routines | Hardware test pending |
+| Logic-level conversion | Required in wiring guide for UART | Visual wiring inspection pending |
+| Red LED + 220Ω | D6 output, dry below 30% | Hardware test pending |
+| Green LED + 220Ω | D7 output, adequate moisture | Hardware test pending |
+| ThingSpeak upload | Field 1 moisture percentage | Live integration test pending |
+| 20-second example interval | `SAMPLE_INTERVAL_MS` | Source review / timing test pending |
