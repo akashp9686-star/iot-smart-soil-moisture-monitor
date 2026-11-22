@@ -1,16 +1,7 @@
-# ThingSpeak Data Format — Project 06
+# ThingSpeak Data Format — Project 03
 
-The firmware writes two fields to ThingSpeak using the ESP-01 AT-command connection.
-
-| ThingSpeak field | Unit | Meaning |
+| Field | Meaning | Unit |
 |---|---|---|
-| Field 1 | A | Estimated RMS current |
-| Field 2 | VA | Estimated apparent power (RMS current × assumed nominal 220V) |
+| Field 1 | Estimated soil moisture | Percent (0–100) |
 
-Illustrative example only:
-```text
-field1=0.420
-field2=96.6
-```
-
-These are not measured readings. The firmware does not sample voltage waveform or power factor; Field 2 is not true active power in watts and must not be presented as such. Upload interval is configured to 30 seconds.
+The firmware writes Field 1 using the channel Write API Key. Configure the channel with a matching field label such as `Soil Moisture (%)`. Do not publish the Write API Key. The channel ID is selected in ThingSpeak's channel configuration; the update endpoint uses the private Write API Key.
