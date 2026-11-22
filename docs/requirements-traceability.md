@@ -1,16 +1,16 @@
-# Requirements Traceability Matrix
+# Requirements Traceability — Handbook Project 06
 
-| ID | Requirement | Implementation / evidence | Verification status |
+| ID | Handbook requirement | Repository evidence | Status |
 |---|---|---|---|
-| R1 | ESP32 firmware target | `platformio.ini` uses `esp32dev` and Arduino | Firmware build passed |
-| R2 | Read six PZEM parameters | `src/main.cpp` reads voltage, current, power, energy, frequency and PF | Compiled; physical serial test not performed |
-| R3 | Use configurable UART pins | `include/config.example.h`, UART2 GPIO16/17 defaults | Compiled |
-| R4 | Reject invalid readings | Finite and broad range checks in `readMeter` | Compiled; physical sensor fault test not performed |
-| R5 | Optional MQTT telemetry | `MQTT_ENABLED` switch and JSON publish function | Compiled with MQTT disabled; live broker not tested |
-| R6 | Protect credentials | Local ignored `include/config.h` pattern | Repository inspection |
-| R7 | Document electrical hazards | `docs/safety.md` | Documentation review |
-| R8 | Reproducible automated build | `.github/workflows/ci.yml` | Passed on GitHub Actions |
-| R9 | Validate example dataset | `tests/test_sample_readings.py` | 2 tests passed |
-| R10 | Record honest physical results | `docs/results-template.md` | Template included; no physical results claimed |
+| R1 | Arduino Uno controller | `platformio.ini`, `src/main.cpp` | Implemented in source |
+| R2 | ACS712-20A current sensor | Analog input A1; RMS estimate | Implemented; calibration pending |
+| R3 | ESP8266 ESP-01 | SoftwareSerial D10/D11 and AT commands | Implemented; module test pending |
+| R4 | Logic-level conversion | Wiring guide: Uno TX to ESP-01 RX | Documented; inspect hardware |
+| R5 | 16x2 I2C LCD | SDA A4 / SCL A5 | Implemented; display test pending |
+| R6 | 10µF capacitor | Component inventory and wiring note | Exact placement to confirm from module schematic |
+| R7 | ThingSpeak upload | Field 1 current A; Field 2 estimated apparent VA | Implemented; live upload pending |
+| R8 | Safety documentation | `docs/safety.md` | Documented |
+| R9 | Reproducible Uno build | GitHub Actions workflow | Check latest run |
+| R10 | Honest validation record | `docs/testing.md` | Physical tests marked pending |
 
-A compile pass confirms that the configured source builds for the selected PlatformIO target. It does not establish physical compatibility, measurement accuracy, mains safety or MQTT operation.
+Compilation does not establish physical compatibility, calibration, mains safety or cloud operation.
