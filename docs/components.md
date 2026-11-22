@@ -1,12 +1,14 @@
-# Component Inventory
+# Component Inventory — Handbook Project 06
 
-| Component | Role | Selection notes |
-|---|---|---|
-| ESP32 DevKit / ESP32-WROOM-32 class board | Main controller and Wi-Fi | Confirm exact board and UART pin mapping |
-| PZEM-004T v3 module with TTL interface | Voltage/current/power/energy/frequency/power-factor metering | Confirm exact revision, terminal layout and interface requirements |
-| Suitable enclosure and protective components | Electrical protection | Must be selected and installed by a qualified person |
-| Low-voltage USB supply | ESP32 power during firmware setup | Do not derive low-voltage supply from exposed mains |
-| MQTT broker (optional) | Telemetry receiver | Can be local or managed; credentials belong in local config |
-| Jumper wires for low-voltage UART only | ESP32-to-meter logic interface | Use correct logic-level/interface requirements for exact module |
+| Component | Quantity | Role / notes |
+|---|---:|---|
+| Arduino Uno R3 | 1 | Main controller |
+| ACS712-20A module | 1 | Current sensing; OUT to A1 |
+| ESP8266 ESP-01 | 1 | Wi-Fi / ThingSpeak through AT commands |
+| Logic-level converter | 1 | Uno TX to ESP-01 RX level adaptation |
+| 16x2 LCD with I2C module | 1 | Local readings; SDA A4, SCL A5 |
+| 10µF capacitor | 1 | Listed in handbook; confirm precise connection/polarity against the supplied module schematic before assembly |
+| 220V extension cord / suitable test fixture | 1 | Mains-side installation by qualified electrician only |
+| Breadboard, jumper wires, regulated 3.3V supply | As required | Low-voltage prototyping and ESP-01 supply |
 
-This list is a design inventory, not evidence that any component has been purchased, assembled or tested.
+This is a required-component inventory, not evidence that components have been purchased or assembled. Never route mains voltage through a breadboard.
