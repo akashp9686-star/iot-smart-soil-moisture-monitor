@@ -1,0 +1,4 @@
+timestamp,voltage_v,current_a,power_w,energy_kwh,frequency_hz,power_factor,record_type
+2026-01-01T00:00:00Z,230.0,0.40,82.0,1.200,50.0,0.89,illustrative
+2026-01-01T00:00:05Z,229.8,0.42,85.0,1.201,50.0,0.88,illustrative
+2026-01-01T00:00:10Z,230.2,0.41,84.0,1.202,49.9,0.89,illustrative
