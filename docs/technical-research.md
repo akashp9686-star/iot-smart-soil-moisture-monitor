@@ -1,39 +1,30 @@
-# Technical Research Notes
+# Technical Research — Glowlogics Project 06
 
-## ESP32 and UART
-The ESP32 Arduino framework exposes hardware UART interfaces through `HardwareSerial`. This project uses UART2 with configurable RX/TX GPIO assignments. Exact pin availability depends on the ESP32 board/module variant.
+## Arduino Uno and ADC
+The project uses an Arduino Uno analog input (A1) to sample the ACS712-20A sensor output. The ADC reference and sensor offset influence calculated current. Calibration must use the exact module revision and a suitable reference instrument.
 
-References:
-- Espressif ESP-IDF UART documentation: https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/peripherals/uart.html
-- Arduino-ESP32 documentation: https://docs.espressif.com/projects/arduino-esp32/en/latest/
+Reference: https://docs.arduino.cc/hardware/uno-rev3/
 
-## PZEM-004T v3.0 module and library
-The selected `mandulaj/PZEM-004T-v30` library is specifically for the updated PZEM-004T v3.0 family. Its documentation lists ESP32 hardware serial as supported and demonstrates the ESP32 constructor using hardware Serial2 with RX/TX pin arguments. The library exposes methods for voltage, current, active power, accumulated energy, frequency and power factor.
+## ACS712 current sensor
+The ACS712 family uses a Hall-effect current sensor with analog output. Sensitivity differs by current-range variant; the firmware's nominal 100mV/A assumption must be confirmed for the 20A module actually used. Offset drift, noise and sampling window affect RMS estimates.
 
-Important compatibility note: the v3.0 library documentation states that this module's protocol is not compatible with the older PZEM004T library. Confirm that the physical module is actually a compatible v3.0 unit before selecting the library or relying on its API.
+Reference: https://www.allegromicro.com/en/products/sense/current-sensor-ics/integrated-current-sensors/acs712
 
-The library's README describes 10A and 100A model variants and warns that wiring, power and serial-interface details matter. Module sellers may use confusing model/version labels; verify the label, datasheet, terminal layout and interface level of the exact unit.
+## ESP8266 ESP-01 AT interface
+The ESP-01 provides Wi-Fi through AT commands over UART. The Uno's 5V TX signal must be reduced to a safe ESP-01 RX logic level using a suitable level converter. Provide a stable regulated 3.3V supply with sufficient current capability. Firmware expects 9600 baud; confirm the module's installed AT firmware.
 
-References:
-- PZEM-004T v3.0 library and ESP32 HardwareSerial example: https://github.com/mandulaj/PZEM-004T-v30
-- PZEM library links and documentation index: https://github.com/mandulaj/PZEM-004T-v30/blob/master/LINKS.md
-- PZEM-004T v3.0 user manual (confirm exact model variant): https://arduino.ua/files/PZEM-004T-V3_0-Datasheet-User-Manual.pdf
+Reference: https://docs.espressif.com/projects/esp-at/en/latest/
 
-## MQTT telemetry
-MQTT is a lightweight publish/subscribe messaging protocol. The example firmware publishes a JSON telemetry payload to one configured topic using PubSubClient. Broker authentication, transport security, topic access controls and network reliability must be considered before deployment. The CI workflow compiles both the MQTT-disabled and MQTT-enabled code paths; it does not connect to a live broker.
+## ThingSpeak telemetry
+The firmware sends Field 1 = estimated RMS current (A) and Field 2 = estimated apparent power (VA). Apparent power is calculated using assumed nominal 230V; this is not active power because voltage waveform and power factor are not measured. The upload interval is 30 seconds.
 
-References:
-- MQTT protocol: https://mqtt.org/
-- PubSubClient library: https://github.com/knolleary/pubsubclient
+Reference: https://www.mathworks.com/help/thingspeak/
 
-## PlatformIO build
-PlatformIO selects the `esp32dev` board environment, Espressif32 platform and Arduino framework. GitHub Actions copies the safe example configuration to an ignored local config file before compilation.
+## I2C LCD
+The 16x2 LCD uses an I2C backpack connected to Uno SDA (A4) and SCL (A5). Backpack addresses vary; firmware's configured address must be checked against the actual module.
 
-Reference:
-- PlatformIO ESP32 DevKit board documentation: https://docs.platformio.org/en/latest/boards/espressif32/esp32dev.html
+## Capacitor and safety
+The handbook component list includes a 10µF capacitor. Confirm its exact placement and polarity against the actual ACS712 module schematic; do not infer a circuit connection from the component list alone. Mains-side installation and enclosure must be designed and performed by a qualified electrician.
 
-## Energy quantities
-The meter library reports accumulated energy in kWh, while active power is reported in watts. Energy is an accumulated quantity and should not be inferred from one instantaneous power sample. For independent validation, compare accumulated readings over a known time interval with a suitable reference meter under controlled conditions.
-
-## Research limitations
-These references support the selected software interface and general design. They do not establish that a particular purchased module is genuine, correctly wired, calibrated, electrically safe or compatible with every ESP32 board. Verify the exact hardware before physical use.
+## Verification boundary
+These references explain the chosen components and interfaces. They do not establish that the physical system has been assembled, calibrated or tested. CI compilation and illustrative sample-data checks are software-only evidence.
