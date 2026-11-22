@@ -5,7 +5,7 @@ The firmware writes two fields to ThingSpeak using the ESP-01 AT-command connect
 | ThingSpeak field | Unit | Meaning |
 |---|---|---|
 | Field 1 | A | Estimated RMS current |
-| Field 2 | VA | Estimated apparent power (RMS current × assumed nominal 230V) |
+| Field 2 | VA | Estimated apparent power (RMS current × assumed nominal 220V) |
 
 Illustrative example only:
 ```text
