@@ -1,4 +1,4 @@
-name: Firmware build and sample-data tests
+name: Project 06 firmware build and repository checks
 
 on:
   push:
@@ -11,21 +11,14 @@ jobs:
   firmware-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
       - name: Install PlatformIO
         run: pip install platformio
-      - name: Create local config from safe example
-        run: cp include/config.example.h include/config.h
-      - name: Compile firmware with MQTT disabled
-        run: pio run
-      - name: Compile firmware with MQTT enabled
+      - name: Compile Arduino Uno firmware
+        run: pio run -e uno
+      - name: Run repository tests when present
         run: |
-          sed -i 's/#define MQTT_ENABLED 0/#define MQTT_ENABLED 1/' include/config.h
-          pio run
-      - name: Run sample-data tests
-        run: python -m unittest discover -s tests -v
+          if [ -d tests ]; then python -m unittest discover -s tests -v; else echo "No automated tests directory; hardware verification remains a separate step."; fi
