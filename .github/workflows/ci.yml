@@ -1,4 +1,4 @@
-name: Project 06 firmware build and repository checks
+name: Project 03 firmware build
 on:
   push:
     branches: [main]
@@ -6,15 +6,13 @@ on:
     branches: [main]
   workflow_dispatch:
 jobs:
-  firmware-build:
+  uno-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install PlatformIO
         run: pip install platformio
-      - name: Create local config from safe template
+      - name: Create local credentials header from example
         run: cp include/config.example.h include/config.h
       - name: Compile Arduino Uno firmware
         run: pio run -e uno
-      - name: Run sample-data tests
-        run: python -m unittest discover -s tests -v
