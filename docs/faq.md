@@ -1,19 +1,16 @@
-# Frequently Asked Questions
+# Frequently Asked Questions — Project 06
 
-## Does the repository include a physical project?
-No. It is a repository-first firmware and documentation submission. It does not claim a physical assembly or demonstration.
+## Which hardware does this repository target?
+Arduino Uno, ACS712-20A, ESP8266 ESP-01, logic-level conversion, 16x2 I2C LCD and ThingSpeak.
 
-## Has the firmware been compiled?
-Yes. GitHub Actions successfully compiled the ESP32 firmware for the configured PlatformIO environment.
+## What is measured?
+The firmware estimates RMS current. Apparent power is estimated as current × assumed 230V. It does not measure voltage waveform or power factor and therefore does not calculate true active power.
 
-## Were the sample readings collected from a sensor?
-No. The CSV values are labelled illustrative and are used only to validate the sample-data format and broad numeric ranges.
+## Has the hardware been tested?
+No physical sensor calibration, LCD test, ESP-01 Wi-Fi association, ThingSpeak upload or mains installation is claimed as completed.
 
-## Is MQTT required?
-No. MQTT is disabled by default. It can be enabled with local credentials in the ignored config file.
+## Why is a 10µF capacitor listed?
+It appears in the handbook component list. Confirm its exact placement, voltage rating and polarity against the actual ACS712 module documentation before assembly.
 
-## Can I connect the PZEM module directly without checking its revision?
-No. Confirm the exact module revision, terminal arrangement, interface requirements and datasheet first. Mains-side installation must be completed by a qualified electrician.
-
-## Does a passing build mean the energy readings are accurate?
-No. Accuracy requires physical testing and comparison with a suitable reference instrument under controlled conditions.
+## Is mains wiring safe to build on a breadboard?
+No. Mains-side installation must be enclosed, protected and completed by a qualified electrician.
