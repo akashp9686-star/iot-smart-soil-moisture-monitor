@@ -4,7 +4,7 @@
 Build a current-monitoring prototype using an Arduino Uno, ACS712-20A current sensor, ESP8266 ESP-01 Wi-Fi module, 16x2 I2C LCD and ThingSpeak cloud channel.
 
 ## System
-The ACS712 analog output is sampled by the Uno at A1. The firmware estimates RMS current from the variance of samples over a one-second window. It displays estimated current and apparent power locally. The ESP-01 receives AT commands over SoftwareSerial and sends ThingSpeak updates.
+The ACS712 analog output is sampled by the Uno at A1. The firmware calculates RMS current from 1,000 samples using a 2.5V midpoint offset and 200µs sample spacing. It displays estimated current and apparent power locally. The ESP-01 receives AT commands over SoftwareSerial and sends ThingSpeak updates.
 
 ## Hardware and interface summary
 - ACS712 VCC/GND/OUT -> Uno 5V/GND/A1.
@@ -18,7 +18,7 @@ The ACS712 analog output is sampled by the Uno at A1. The firmware estimates RMS
 ThingSpeak Field 1 is RMS current (A). Field 2 is estimated apparent power (VA). The upload interval is 30 seconds.
 
 ## Measurement limitations
-The firmware assumes nominal 230V and estimates apparent power as I × 230V. It does not sample voltage or power factor, so it does not measure true active power or billing-grade energy. ACS712 offset, sensitivity, ADC reference and sampling method require calibration.
+The firmware assumes nominal 220V and estimates apparent power as I × 220V. It does not sample voltage or power factor, so it does not measure true active power or billing-grade energy. ACS712 offset, sensitivity, ADC reference and sampling method require calibration.
 
 ## Verification status
 The source is configured for the Arduino Uno PlatformIO environment. Compilation should be checked in GitHub Actions. No physical sensor calibration, LCD test, ESP-01 Wi-Fi association, ThingSpeak upload or mains installation is claimed as completed. Example CSV values are illustrative only.
