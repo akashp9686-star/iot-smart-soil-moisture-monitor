@@ -1,13 +1,11 @@
-# Limitations and Known Risks
+# Limitations and Known Risks — Project 06
 
-- This repository has not been tested with a physical ESP32 or PZEM-004T module.
-- The exact PZEM module revision and terminal arrangement must be confirmed.
-- The example UART pins are defaults and may need adjustment for a specific ESP32 board.
-- Broad firmware plausibility bounds are not calibration limits.
-- The code does not implement a certified billing-grade measurement system.
-- MQTT is optional and disabled by default.
-- The example MQTT transport is not TLS-secured; deployment requires a security review.
-- Wi-Fi/MQTT outages may interrupt telemetry; no durable offline queue is implemented.
-- The sample CSV contains illustrative values, not measured data.
-- This project is not a protective relay, circuit breaker, or safety device.
-- Physical accuracy, electrical isolation, enclosure safety and regulatory compliance are not established by a successful software build.
+- Firmware targets Arduino Uno + ACS712-20A + ESP-01 AT + I2C LCD + ThingSpeak, not ESP32/PZEM/MQTT.
+- RMS current estimate depends on sensor offset, sensitivity, ADC reference, sample timing and calibration.
+- Apparent power uses an assumed nominal 230V and is not measured active power; voltage waveform and power factor are not sampled.
+- ESP-01 AT firmware version and baud must match configuration; stable regulated 3.3V supply is required.
+- LCD I2C address may vary by backpack.
+- 10µF capacitor placement must be checked against the exact sensor/module schematic.
+- Example data is illustrative, not measured.
+- Physical calibration, display, Wi-Fi and ThingSpeak tests remain pending.
+- Mains isolation, enclosure, fusing and regulatory compliance are not established by a successful software build.
