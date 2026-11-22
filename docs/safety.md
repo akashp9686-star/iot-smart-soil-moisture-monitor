@@ -1,18 +1,15 @@
-# Electrical Safety
+# Electrical Safety — Project 06
 
 **DANGER: AC mains voltage can cause fatal electric shock, burns and fire.**
 
-This repository is not a substitute for electrical training, local electrical codes, the exact module datasheet or professional installation.
-
 - Do not connect, disconnect, probe or modify a live mains circuit.
-- Do not use a breadboard for mains wiring.
-- Do not expose mains terminals or conductors.
-- Do not connect AC mains to ESP32 GPIO pins or UART pins.
-- Do not assume that all PZEM-004T variants have identical terminal layouts, isolation or voltage ratings.
-- Have mains-side installation, protective devices, conductor sizing, enclosure, earthing and strain relief selected and completed by a qualified electrician.
-- Use an appropriately rated enclosure and protective equipment.
+- Never place mains wiring on a breadboard or expose live conductors.
+- Do not connect mains to Arduino Uno, ESP-01 GPIO, UART or USB connections.
+- Have the ACS712 mains-side current path, enclosure, fuse/protection, insulation, earthing and strain relief designed and installed by a qualified electrician.
+- Verify the exact ACS712 module's current rating, terminal arrangement, isolation design and datasheet.
 - Keep the low-voltage controller side physically protected from hazardous voltage.
-- Disconnect and verify isolation before any inspection by an appropriately qualified person.
-- Do not use the prototype as a billing meter or safety protection device.
+- ESP-01 requires a regulated 3.3V supply and safe UART logic levels; use level conversion from Uno TX to ESP-01 RX.
+- Confirm capacitor polarity and voltage rating before fitting the handbook-listed 10µF capacitor.
+- Do not use this prototype as a billing meter or protective device.
 
-The firmware's broad plausibility checks are software checks only. They do not provide electrical protection, calibration or certification.
+Software plausibility checks do not provide electrical protection, calibration or certification.
