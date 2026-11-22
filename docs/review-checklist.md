@@ -12,8 +12,10 @@
 - [x] GitHub Actions workflow
 
 ## Software verification
-- [ ] Confirm latest GitHub Actions firmware build passes
-- [ ] Confirm sample-data unit tests pass
+- [x] Latest GitHub Actions firmware build passes (run #10)
+- [x] MQTT-disabled firmware compilation passes
+- [x] MQTT-enabled firmware compilation passes
+- [x] Sample-data unit tests pass (2 tests)
 
 ## Physical validation (not claimed by this repository package)
 - [ ] Confirm exact PZEM revision and hardware compatibility
@@ -23,4 +25,4 @@
 - [ ] MQTT delivery test, if enabled
 - [ ] Genuine evidence and completed results record
 
-A checked repository-content item means the corresponding file is included. It does not mean the hardware has been assembled, tested or certified.
+A checked repository-content or software-verification item means the corresponding file is included or the stated automated check passed. It does not mean the hardware has been assembled, tested or certified.
