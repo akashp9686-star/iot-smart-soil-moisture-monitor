@@ -1,0 +1,15 @@
+include/config.h
+.pio/
+.piolibdeps/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+build/
+dist/
+*.elf
+*.bin
