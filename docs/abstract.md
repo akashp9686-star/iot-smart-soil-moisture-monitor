@@ -1,5 +1,5 @@
 # Abstract
 
-This repository documents Glowlogics Handbook Project 06: a Smart Home Energy Meter using Arduino Uno, ACS712-20A current sensor, ESP8266 ESP-01 Wi-Fi module, 16x2 I2C LCD and ThingSpeak. The Uno calculates RMS current from 1,000 ADC samples, displays current and estimated apparent power, and sends telemetry through the ESP-01 AT interface.
+The Smart Soil Moisture Monitor reads an analog soil moisture sensor with an Arduino Uno R3, indicates dry and adequately moist conditions using red and green LEDs, and sends moisture readings to ThingSpeak through an ESP8266 ESP-01 Wi-Fi module controlled with UART AT commands. The handbook example uses A0 for the sensor, D6 and D7 for the LEDs, a 30% dry threshold and a 20-second sample/upload interval.
 
-The apparent-power value uses an assumed 220V supply and is not a measurement of true active power. Physical calibration, mains installation, LCD operation, ESP-01 connectivity and live ThingSpeak delivery remain unverified.
+Sensor calibration and physical integration depend on the actual sensor, ESP-01 firmware and power supply. This repository does not claim physical testing has been completed.
