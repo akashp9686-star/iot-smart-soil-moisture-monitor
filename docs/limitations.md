@@ -1,11 +1,8 @@
-# Limitations and Known Risks — Project 06
+# Limitations — Project 03
 
-- Firmware targets Arduino Uno + ACS712-20A + ESP-01 AT + I2C LCD + ThingSpeak, not ESP32/PZEM/MQTT.
-- RMS current estimate depends on sensor offset, sensitivity, ADC reference, sample timing and calibration.
-- Apparent power uses an assumed nominal 220V and is not measured active power; voltage waveform and power factor are not sampled.
-- ESP-01 AT firmware version and baud must match configuration; stable regulated 3.3V supply is required.
-- LCD I2C address may vary by backpack.
-- 10µF capacitor placement must be checked against the exact sensor/module schematic.
-- Example data is illustrative, not measured.
-- Physical calibration, display, Wi-Fi and ThingSpeak tests remain pending.
-- Mains isolation, enclosure, fusing and regulatory compliance are not established by a successful software build.
+- The 1023 dry / 300 wet ADC mapping is a handbook example and must be calibrated for the actual sensor and soil.
+- A 30% threshold is an example decision boundary, not a universal agronomic threshold.
+- ESP-01 AT firmware, baud rate and power supply must match the firmware configuration.
+- ThingSpeak connectivity depends on Wi-Fi availability and valid private credentials.
+- The implementation uploads moisture percentage only; it does not actuate a pump or automate irrigation.
+- Physical tests are pending and no hardware performance claim is made.
