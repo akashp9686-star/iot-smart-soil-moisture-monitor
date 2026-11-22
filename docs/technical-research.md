@@ -16,7 +16,7 @@ The ESP-01 provides Wi-Fi through AT commands over UART. The Uno's 5V TX signal 
 Reference: https://docs.espressif.com/projects/esp-at/en/latest/
 
 ## ThingSpeak telemetry
-The firmware sends Field 1 = estimated RMS current (A) and Field 2 = estimated apparent power (VA). Apparent power is calculated using assumed nominal 230V; this is not active power because voltage waveform and power factor are not measured. The upload interval is 30 seconds.
+The firmware sends Field 1 = estimated RMS current (A) and Field 2 = estimated apparent power (VA). Apparent power is calculated using assumed nominal 220V; this is not active power because voltage waveform and power factor are not measured. The upload interval is 30 seconds.
 
 Reference: https://www.mathworks.com/help/thingspeak/
 
