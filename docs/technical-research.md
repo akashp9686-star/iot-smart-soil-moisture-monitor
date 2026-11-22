@@ -1,30 +1,22 @@
-# Technical Research — Glowlogics Project 06
+# Technical Notes and References — Project 03
 
-## Arduino Uno and ADC
-The project uses an Arduino Uno analog input (A1) to sample the ACS712-20A sensor output. The ADC reference and sensor offset influence calculated current. Calibration must use the exact module revision and a suitable reference instrument.
+## Arduino Uno analog input
+The Uno reads the sensor's analog output on A0. The 10-bit ADC provides nominal readings from 0 to 1023. Actual values depend on sensor construction, supply voltage, soil composition and moisture.
 
 Reference: https://docs.arduino.cc/hardware/uno-rev3/
 
-## ACS712 current sensor
-The ACS712 family uses a Hall-effect current sensor with analog output. Sensitivity differs by current-range variant; the firmware's nominal 100mV/A assumption must be confirmed for the 20A module actually used. Offset drift, noise and sampling window affect RMS estimates.
-
-Reference: https://www.allegromicro.com/en/products/sense/current-sensor-ics/integrated-current-sensors/acs712
+## Soil moisture sensing
+The handbook permits a capacitive or resistive analog-output soil moisture sensor. The provided example maps raw ADC 1023 to dry and 300 to wet; these are starting values only and must be calibrated for the exact sensor. Capacitive sensors are generally preferred for longer-term soil exposure because exposed resistive electrodes can corrode, but the handbook allows either type.
 
 ## ESP8266 ESP-01 AT interface
-The ESP-01 provides Wi-Fi through AT commands over UART. The Uno's 5V TX signal must be reduced to a safe ESP-01 RX logic level using a suitable level converter. Provide a stable regulated 3.3V supply with sufficient current capability. Firmware expects 9600 baud; confirm the module's installed AT firmware.
+The ESP-01 communicates with the Uno over UART using AT commands. The handbook assigns Uno D10/D11 to the serial interface and requires a logic-level converter. ESP-01 power must be a stable regulated 3.3V supply; verify the module's installed AT firmware and baud rate.
 
 Reference: https://docs.espressif.com/projects/esp-at/en/latest/
 
-## ThingSpeak telemetry
-The firmware sends Field 1 = estimated RMS current (A) and Field 2 = estimated apparent power (VA). Apparent power is calculated using assumed nominal 220V; this is not active power because voltage waveform and power factor are not measured. The upload interval is 30 seconds.
+## ThingSpeak
+The Uno sends the measured moisture percentage as Field 1 using the ESP-01's TCP connection to api.thingspeak.com. The example interval is 20 seconds.
 
 Reference: https://www.mathworks.com/help/thingspeak/
 
-## I2C LCD
-The 16x2 LCD uses an I2C backpack connected to Uno SDA (A4) and SCL (A5). Backpack addresses vary; firmware's configured address must be checked against the actual module.
-
-## Capacitor and safety
-The handbook component list includes a 10µF capacitor. Confirm its exact placement and polarity against the actual ACS712 module schematic; do not infer a circuit connection from the component list alone. Mains-side installation and enclosure must be designed and performed by a qualified electrician.
-
-## Verification boundary
-These references explain the chosen components and interfaces. They do not establish that the physical system has been assembled, calibrated or tested. CI compilation and illustrative sample-data checks are software-only evidence.
+## Scope boundary
+These notes describe the design and calibration requirements; they are not evidence of a completed physical build. Record actual module revisions, calibration values, serial logs and ThingSpeak observations during testing.
