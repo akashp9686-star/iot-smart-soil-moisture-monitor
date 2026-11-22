@@ -41,7 +41,7 @@ void upload(float amps,float va){
   if(String(THINGSPEAK_WRITE_API_KEY)=="YOUR_WRITE_API_KEY"){ Serial.println(F("Configure ThingSpeak write key privately.")); return; }
   at(F("AT+CIPMUX=0"),500);
   esp8266.println(F("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80")); delay(2500); drainEsp();
-  String req=String(F("GET /update?api_key="))+THINGSPEAK_WRITE_API_KEY+F("&field1=")+String(amps,3)+F("&field2=")+String(va,1)+F(" HTTP/1.1\\r\\nHost: api.thingspeak.com\\r\\nConnection: close\\r\\n\\r\\n");
+  String req=String(F("GET /update?api_key="))+THINGSPEAK_WRITE_API_KEY+F("&field1=")+String(amps,3)+F("&field2=")+String(va,1)+F(" HTTP/1.1\r\nHost: api.thingspeak.com\r\nConnection: close\r\n\r\n");
   esp8266.print(F("AT+CIPSEND=")); esp8266.println(req.length()); delay(1000); esp8266.print(req); delay(4000); drainEsp(); at(F("AT+CIPCLOSE"),500);
 }
 void setup(){
