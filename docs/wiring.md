@@ -1,13 +1,11 @@
-# Interface and Wiring Notes
+# Project 06 — Wiring and Interfaces
+| Device signal | Arduino Uno |
+|---|---|
+| ACS712 VCC / GND / OUT | 5V / GND / A1 |
+| LCD SDA / SCL | A4 / A5 |
+| ESP-01 TX | D10 (SoftwareSerial RX) |
+| ESP-01 RX | D11 (SoftwareSerial TX) through 5V-to-3.3V level conversion |
 
-## Low-voltage UART concept
+ESP-01 VCC and EN/CH_PD require a stable, adequate 3.3V supply. Confirm the exact module pinout, current requirements and AT firmware baud rate. Firmware defaults to 9600 baud. ThingSpeak fields: Field 1 current RMS in amperes; Field 2 estimated apparent power in VA.
 
-| ESP32 signal | PZEM TTL signal | Notes |
-|---|---|---|
-| GPIO16 / RX2 | TX | UART receive; confirm connector pinout |
-| GPIO17 / TX2 | RX | UART transmit; confirm connector pinout |
-| GND | GND | Common logic reference only where required by the exact interface design |
-
-The code defaults to ESP32 UART2 with RX GPIO16 and TX GPIO17. These pins are configurable in `include/config.h`.
-
-**Do not treat this table as a mains wiring diagram.** The PZEM-004T family has multiple versions and board variants. The AC terminal arrangement and electrical isolation differ by model. Use the exact manufacturer's documentation for the exact module and have mains-side installation completed by a qualified person. Never connect mains to ESP32 GPIO pins.
+**Mains warning:** This table covers low-voltage signal interfaces only. The ACS712 current path must be installed in an appropriately enclosed, fused and insulated fixture by a qualified electrician. Never put mains on a breadboard or connect mains to Uno/ESP pins.
