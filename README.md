@@ -14,7 +14,7 @@ This repository implements the handbook architecture: Uno samples ACS712 current
 - Low-voltage breadboard/jumpers; mains fixture by qualified electrician only
 
 ## ThingSpeak mapping
-Field 1 = estimated RMS current (A). Field 2 = estimated apparent power (VA). Apparent power is current × assumed 230V; it is not active power because voltage waveform and power factor are not measured. Upload interval: 30 seconds.
+Field 1 = estimated RMS current (A). Field 2 = estimated apparent power (VA). Apparent power is current × assumed 220V; it is not active power because voltage waveform and power factor are not measured. Upload interval: 30 seconds.
 
 ## Configure and build
 Copy `include/config.example.h` to `include/config.h`, enter private Wi-Fi and ThingSpeak credentials, then run:
@@ -26,7 +26,7 @@ pio device monitor -b 9600
 Never commit `config.h` or credentials.
 
 ## Measurement limitations
-ACS712 sensitivity, offset, ADC reference and sampling require calibration against a suitable reference. The 230V apparent-power estimate is not billing-grade energy or active power.
+ACS712 sensitivity, offset, ADC reference and sampling require calibration against a suitable reference. The 220V apparent-power estimate is not billing-grade energy or active power.
 
 ## Safety
 Mains voltage can kill. A qualified electrician must design, install and inspect the mains-side current path, enclosure, fusing, insulation and earthing. Never route mains through a breadboard or connect it to Arduino/ESP pins.
