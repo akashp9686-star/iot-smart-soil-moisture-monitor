@@ -21,7 +21,11 @@ jobs:
         run: pip install platformio
       - name: Create local config from safe example
         run: cp include/config.example.h include/config.h
-      - name: Compile ESP32 firmware
+      - name: Compile firmware with MQTT disabled
         run: pio run
+      - name: Compile firmware with MQTT enabled
+        run: |
+          sed -i 's/#define MQTT_ENABLED 0/#define MQTT_ENABLED 1/' include/config.h
+          pio run
       - name: Run sample-data tests
         run: python -m unittest discover -s tests -v
