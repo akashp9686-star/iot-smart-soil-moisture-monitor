@@ -4,7 +4,7 @@
 Arduino Uno, ACS712-20A, ESP8266 ESP-01, logic-level conversion, 16x2 I2C LCD and ThingSpeak.
 
 ## What is measured?
-The firmware estimates RMS current. Apparent power is estimated as current × assumed 230V. It does not measure voltage waveform or power factor and therefore does not calculate true active power.
+The firmware estimates RMS current. Apparent power is estimated as current × assumed 220V. It does not measure voltage waveform or power factor and therefore does not calculate true active power.
 
 ## Has the hardware been tested?
 No physical sensor calibration, LCD test, ESP-01 Wi-Fi association, ThingSpeak upload or mains installation is claimed as completed.
