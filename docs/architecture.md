@@ -1,22 +1,13 @@
-# System Architecture
+# Project 06 — System Architecture
+Glowlogics handbook architecture: ACS712-20A senses current; Arduino Uno samples its analog output at A1 and estimates RMS current; the Uno calculates approximate apparent power using an assumed 230 V nominal supply; a 16x2 I2C LCD displays the values; an ESP8266 ESP-01 uses AT commands over SoftwareSerial to upload current and apparent-power fields to ThingSpeak.
 
 ```mermaid
 flowchart LR
-  A[AC circuit] --> B[PZEM-004T metering module]
-  B <-->|UART TTL| C[ESP32 controller]
-  C --> D[Serial diagnostics]
-  C --> E{MQTT enabled?}
-  E -->|Yes| F[Wi-Fi network]
-  F --> G[MQTT broker]
-  E -->|No| H[Local-only mode]
+  A[AC load current path] --> B[ACS712-20A]
+  B -->|Analog OUT A1| C[Arduino Uno]
+  C --> D[16x2 I2C LCD]
+  C -->|SoftwareSerial D10/D11| E[ESP8266 ESP-01]
+  E -->|Wi-Fi / HTTP| F[ThingSpeak]
 ```
 
-## Data path
-1. The PZEM module measures electrical parameters using its metering circuitry.
-2. The ESP32 communicates with the module over UART2.
-3. Firmware reads voltage, current, active power, accumulated energy, frequency and power factor.
-4. Broad plausibility checks reject unavailable or out-of-range readings.
-5. Valid values are printed to Serial Monitor.
-6. If MQTT is enabled in the private local configuration, firmware serializes a JSON payload and publishes it to the configured topic.
-
-The diagram is a logical architecture, not an approved mains wiring diagram.
+The AC path is conceptual only. Qualified-person installation, isolation, enclosure and inspection are mandatory. Apparent power is an estimate (I x assumed 230 V), not measured active power.
