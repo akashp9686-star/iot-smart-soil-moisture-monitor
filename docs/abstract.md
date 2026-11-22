@@ -1,5 +1,5 @@
 # Abstract
 
-The Smart Home Energy Meter repository describes an ESP32-based energy monitoring node using a PZEM-004T v3 metering module. The module provides electrical measurements over a serial interface; the ESP32 reads and validates the data, displays it on the serial monitor, and can optionally publish telemetry through MQTT.
+This repository documents Glowlogics Handbook Project 06: a Smart Home Energy Meter using Arduino Uno, ACS712-20A current sensor, ESP8266 ESP-01 Wi-Fi module, 16x2 I2C LCD and ThingSpeak. The Uno estimates RMS current from the sensor output, displays current and estimated apparent power, and sends telemetry through the ESP-01 AT interface.
 
-The package includes firmware source, reproducible build configuration, example data, automated sample-data checks, system design notes, safety boundaries and a verification plan. Physical installation, calibration and live telemetry have not been performed as part of this repository preparation.
+The apparent-power value uses an assumed 230V supply and is not a measurement of true active power. Physical calibration, mains installation, LCD operation, ESP-01 connectivity and live ThingSpeak delivery remain unverified.
