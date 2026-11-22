@@ -1,47 +1,35 @@
 # Project 06 — Smart Home Energy Meter
-**Glowlogics IoT Projects Handbook | HARD | Arduino Uno + ACS712-20A + ESP8266 ESP-01 + ThingSpeak**
+**Glowlogics IoT Projects Handbook | HARD | Arduino Uno + ACS712-20A + ESP8266 ESP-01 + 16x2 I2C LCD + ThingSpeak**
 
-This repository implements the handbook's Project 06 architecture: the Uno samples an ACS712-20A current sensor, estimates RMS current and apparent power, displays values on a 16x2 I2C LCD, and sends readings to ThingSpeak through an ESP-01 using AT commands.
+This repository implements the handbook architecture: Uno samples ACS712 current, estimates RMS current and apparent power, displays readings locally, and uses ESP-01 AT commands to upload two fields to ThingSpeak.
 
-## Handbook component checklist
-| Component | Quantity | Repository treatment |
-|---|---:|---|
-| Arduino Uno R3 | 1 | Firmware target |
-| ACS712-20A module | 1 | Current input at A1 |
-| ESP8266 ESP-01 | 1 | AT-command Wi-Fi module |
-| Logic-level converter | 1 | Uno TX to ESP-01 RX |
-| 16x2 LCD + I2C module | 1 | Local display |
-| 220V extension cord / safe fixture | 1 | Mains-side fixture only; qualified electrician |
-| 10µF capacitor | 1 | Handbook specifies filtering at ACS712 output; verify polarity, voltage rating and exact placement against the sensor/module documentation before fitting |
-| Jumper wires and breadboard | — | Low-voltage prototyping only |
+## Hardware and pin map
+- Arduino Uno R3 (1)
+- ACS712-20A: VCC/GND/OUT -> 5V/GND/A1
+- ESP8266 ESP-01 (1), AT firmware at 9600 baud
+- Logic-level converter (1): Uno D11 TX -> ESP-01 RX; ESP-01 TX -> Uno D10 RX
+- ESP-01 stable regulated 3.3V supply, EN/CH_PD enabled, common low-voltage ground
+- 16x2 LCD + I2C: SDA A4, SCL A5
+- 10µF capacitor listed by handbook; verify exact placement/polarity against actual module schematic before fitting
+- Low-voltage breadboard/jumpers; mains fixture by qualified electrician only
 
-## Wiring
-- ACS712 VCC/GND/OUT -> Uno 5V/GND/A1.
-- LCD SDA/SCL -> Uno A4/A5.
-- ESP-01 TX -> Uno D10 (SoftwareSerial RX).
-- Uno D11 (SoftwareSerial TX) -> ESP-01 RX through 5V-to-3.3V level conversion.
-- ESP-01 VCC and CH_PD/EN -> stable regulated 3.3V supply; common ground.
-- The 10µF filter capacitor is a handbook component; do not guess its connection or polarity. Follow the exact ACS712 board documentation and observe capacitor voltage/polarity ratings.
+## ThingSpeak mapping
+Field 1 = estimated RMS current (A). Field 2 = estimated apparent power (VA). Apparent power is current × assumed 230V; it is not active power because voltage waveform and power factor are not measured. Upload interval: 30 seconds.
 
-## Firmware and cloud fields
-PlatformIO target: `env:uno`. Libraries: LiquidCrystal_I2C and Arduino core (SoftwareSerial is included with AVR core). ESP-01 AT baud is configured at 9600 and must match the module.
-- ThingSpeak Field 1: RMS current (A).
-- ThingSpeak Field 2: estimated apparent power (VA).
-- Upload interval: 30 seconds.
-Configure `WIFI_SSID`, `WIFI_PASSWORD`, and `THINGSPEAK_WRITE_API_KEY` privately through build flags or local configuration; never commit credentials.
-
-## Calculation and limitations
-Firmware estimates RMS current from ADC sample variance over a one-second window, using nominal ACS712-20A sensitivity of 100 mV/A. Confirm the exact sensor variant and calibrate against a suitable reference instrument. Apparent power is estimated as current × assumed 230 V. It is **not true active power**: voltage waveform and power factor are not measured. ADC reference, sensor offset, noise, sampling and calibration affect accuracy.
-
-## Build
+## Configure and build
+Copy `include/config.example.h` to `include/config.h`, enter private Wi-Fi and ThingSpeak credentials, then run:
 ```bash
 pio run -e uno
 pio run -e uno -t upload
 pio device monitor -b 9600
 ```
+Never commit `config.h` or credentials.
+
+## Measurement limitations
+ACS712 sensitivity, offset, ADC reference and sampling require calibration against a suitable reference. The 230V apparent-power estimate is not billing-grade energy or active power.
 
 ## Safety
-**Mains voltage can kill.** A qualified electrician must design, install and inspect the mains-side current path, enclosure, fusing, insulation, earthing and strain relief. Never place mains on a breadboard, expose live conductors, or connect mains to Arduino/ESP GPIO. Keep all MCU wiring safely isolated.
+Mains voltage can kill. A qualified electrician must design, install and inspect the mains-side current path, enclosure, fusing, insulation and earthing. Never route mains through a breadboard or connect it to Arduino/ESP pins.
 
 ## Verification
-The repository is source/documentation, not proof of completed hardware testing. ACS712 calibration, LCD operation, ESP-01 AT/Wi-Fi association and live ThingSpeak upload remain pending until performed and documented. CI compilation, if green, proves compilation only.
+Check latest GitHub Actions for hosted Uno compilation and sample-data tests. Physical ACS712 calibration, LCD, ESP-01 Wi-Fi, live ThingSpeak and mains installation remain unverified. Example CSV is illustrative only.
