@@ -1,16 +1,13 @@
-# Frequently Asked Questions — Project 06
+# FAQ — Project 03
 
-## Which hardware does this repository target?
-Arduino Uno, ACS712-20A, ESP8266 ESP-01, logic-level conversion, 16x2 I2C LCD and ThingSpeak.
+**Why is the percentage inaccurate?** Calibrate the raw dry and wet endpoints for your exact sensor and soil. The handbook's 1023/300 values are examples.
 
-## What is measured?
-The firmware estimates RMS current. Apparent power is estimated as current × assumed 220V. It does not measure voltage waveform or power factor and therefore does not calculate true active power.
+**Why does the ESP-01 restart or fail to join Wi-Fi?** Check the regulated 3.3V supply, common ground, UART level conversion, AT firmware baud rate and credentials.
 
-## Has the hardware been tested?
-No physical sensor calibration, LCD test, ESP-01 Wi-Fi association, ThingSpeak upload or mains installation is claimed as completed.
+**What does the red LED mean?** The example firmware turns it on below 30% estimated moisture.
 
-## Why is a 10µF capacitor listed?
-It appears in the handbook component list. Confirm its exact placement, voltage rating and polarity against the actual ACS712 module documentation before assembly.
+**What does ThingSpeak receive?** Field 1 receives the moisture percentage.
 
-## Is mains wiring safe to build on a breadboard?
-No. Mains-side installation must be enclosed, protected and completed by a qualified electrician.
+**Does this operate an irrigation pump?** No. The handbook project monitors moisture and uploads data; pump actuation is outside this implementation.
+
+**Has the physical circuit been tested?** Not yet. See `testing.md` for the honest verification record.
