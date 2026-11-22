@@ -1,4 +1,4 @@
-timestamp,current_rms_a,estimated_apparent_power_va,record_type
-2026-01-01T00:00:00Z,0.400,92.0,illustrative
-2026-01-01T00:00:30Z,0.420,96.6,illustrative
-2026-01-01T00:01:00Z,0.410,94.3,illustrative
+timestamp,soil_moisture_percent,record_type
+2026-11-22T08:00:00Z,22,illustrative
+2026-11-22T08:00:20Z,28,illustrative
+2026-11-22T08:00:40Z,46,illustrative
