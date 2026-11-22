@@ -7,7 +7,7 @@
 
 A repository-first embedded systems project that documents and implements an ESP32-based energy-monitoring node. The firmware reads electrical parameters from a compatible PZEM-004T v3 module over UART and can optionally publish JSON telemetry to an MQTT broker.
 
-> **Verification scope:** The latest recorded GitHub Actions run (#10) completed successfully, including both PlatformIO firmware configurations (MQTT disabled and enabled) and the Python sample-data tests. No physical ESP32/PZEM assembly, mains installation, calibration, reference-meter comparison, Wi-Fi field test or live MQTT broker test is claimed. Example CSV readings and JSON payload values are illustrative, not measured observations.
+> **Verification scope:** The latest recorded GitHub Actions run (#13) completed successfully, including both PlatformIO firmware configurations (MQTT disabled and enabled) and the Python sample-data tests. No physical ESP32/PZEM assembly, mains installation, calibration, reference-meter comparison, Wi-Fi field test or live MQTT broker test is claimed. Example CSV readings and JSON payload values are illustrative, not measured observations.
 
 ## Project objectives
 
@@ -102,7 +102,7 @@ The latest recorded workflow run (#10) passed all steps:
 - MQTT-enabled firmware compilation
 - Python sample-data unit tests (2 tests)
 
-[View workflow run #10](https://github.com/akashp9686-star/smart-home-energy-meter/actions/runs/45000141024) · [View all workflow runs](https://github.com/akashp9686-star/smart-home-energy-meter/actions)
+[View latest workflow run #13](https://github.com/akashp9686-star/smart-home-energy-meter/actions/runs/45000368437) · [View all workflow runs](https://github.com/akashp9686-star/smart-home-energy-meter/actions)
 
 A successful build verifies compilation for the configured PlatformIO target; it does not verify physical measurements, wiring, electrical safety, MQTT delivery or calibration.
 
@@ -136,7 +136,7 @@ Read [docs/safety.md](docs/safety.md) before any hardware work.
 | Firmware source and PlatformIO target | Included |
 | MQTT optional implementation | Included; both compile-time paths passed CI |
 | Sample-data tests | Passed (2 tests) |
-| Hosted firmware build | Passed — GitHub Actions run #10 |
+| Hosted firmware build | Passed — GitHub Actions run #13 |
 | Physical sensor operation and calibration | Not performed |
 | Mains installation and inspection | Not performed |
 | Live MQTT delivery | Not performed |
