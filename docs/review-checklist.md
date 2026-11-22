@@ -1,27 +1,29 @@
-# Repository Review Checklist — Handbook Project 06
+# Repository Review Checklist — Glowlogics Project 03
 
-## Repository contents
-- [x] README and abstract aligned to Arduino Uno + ACS712 + ESP-01 + LCD + ThingSpeak
-- [x] Architecture, component inventory and pin map
-- [x] Firmware source and Uno PlatformIO configuration
-- [x] Credential-safe example configuration
-- [x] Wiring notes and mains safety guidance
-- [x] Methodology, research references and limitations
-- [x] ThingSpeak field mapping
-- [x] Illustrative current/apparent-power CSV and Python tests
-- [x] GitHub Actions workflow
+## Handbook alignment
+- [x] Problem statement: monitor soil moisture and upload readings to ThingSpeak
+- [x] Arduino Uno R3 and analog soil sensor on A0
+- [x] ESP8266 ESP-01 controlled using UART AT commands on D10/D11
+- [x] Logic-level conversion required for Uno/ESP-01 UART
+- [x] Red LED on D6 and green LED on D7, each with 220Ω resistor
+- [x] ThingSpeak Field 1 moisture percentage
+- [x] Handbook example threshold (30%) and interval (20 seconds)
 
-## Software verification
-- [ ] Latest Project 06 Uno build reviewed and passing
-- [ ] Latest sample-data tests reviewed and passing
+## Repository quality
+- [x] Firmware and PlatformIO Uno target
+- [x] Private credential template and ignore rule
+- [x] README, abstract, report, architecture and component inventory
+- [x] Wiring, methodology, research, calibration limitations and safety
+- [x] Evaluator guide, requirements traceability and results template
+- [x] Illustrative sample CSV and schema/range tests
+- [x] GitHub Actions compile workflow
 
-## Physical validation (not claimed as completed)
-- [ ] Confirm ACS712-20A module and calibrate against reference instrument
-- [ ] Verify 10µF capacitor placement from exact module schematic
-- [ ] Test LCD and I2C address
-- [ ] Verify ESP-01 AT firmware, UART level conversion and Wi-Fi association
-- [ ] Confirm ThingSpeak Field 1 and Field 2 uploads
-- [ ] Qualified electrician installation and inspection
-- [ ] Add genuine photographs and completed results record
+## Verification still required
+- [ ] Latest hosted firmware build completes successfully
+- [ ] Sensor dry/wet endpoints calibrated on the actual sensor
+- [ ] Red/green LED threshold behavior physically verified
+- [ ] ESP-01 AT firmware, baud rate, power and Wi-Fi verified
+- [ ] Live ThingSpeak Field 1 update verified
+- [ ] Add genuine dated photographs and measured results
 
-A repository checklist does not certify hardware assembly, calibration, mains safety or cloud operation.
+Illustrative CSV is test data, not hardware evidence. Do not mark physical checks complete until performed.
