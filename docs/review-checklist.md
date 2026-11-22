@@ -12,7 +12,7 @@
 - [x] GitHub Actions workflow
 
 ## Software verification
-- [x] Latest GitHub Actions firmware build passes (run #10)
+- [x] Latest confirmed successful GitHub Actions firmware build passes (run #13)
 - [x] MQTT-disabled firmware compilation passes
 - [x] MQTT-enabled firmware compilation passes
 - [x] Sample-data unit tests pass (2 tests)
