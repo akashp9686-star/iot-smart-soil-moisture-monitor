@@ -1,19 +1,19 @@
-# Design Decisions
+# Design Decisions — Project 06
 
-## ESP32 DevKit target
-The PlatformIO environment targets the common `esp32dev` board definition. A different ESP32 board may require a different board ID and pin review.
+## Arduino Uno target
+The PlatformIO environment targets Arduino Uno (ATmega328P), matching the handbook controller.
 
-## UART2 for meter communication
-A hardware UART is selected to keep serial communication independent of USB Serial Monitor output. RX and TX pins are configurable. Confirm the actual board pinout and module TTL interface before wiring.
+## ACS712 current sensing
+The firmware samples ACS712-20A analog output on A1 and estimates RMS current from sample variance over a one-second window. The assumed sensitivity is nominal; exact module variant and calibration must be verified.
 
-## MQTT is optional
-MQTT is disabled by default. This keeps the baseline firmware independent of Wi-Fi and broker credentials. Users can enable it in their ignored local config file.
+## ESP-01 AT interface
+SoftwareSerial uses Uno D10 as RX and D11 as TX. Uno TX is level-converted before the ESP-01 RX pin. ESP-01 requires a stable regulated 3.3V supply and compatible AT firmware baud (default 9600).
 
-## Secrets are local
-The tracked example config contains placeholders only. The real `include/config.h` file is excluded by `.gitignore`.
+## ThingSpeak fields
+Field 1 contains estimated RMS current (A). Field 2 contains estimated apparent power (VA), calculated using assumed 230V. It is not active power.
 
-## Conservative claims
-Sample CSV values are illustrative. Automated tests validate file structure and broad ranges, not sensor accuracy. Physical tests are explicitly separated from CI checks.
+## Local credentials
+Wi-Fi SSID/password and ThingSpeak Write API key are supplied privately and must never be committed.
 
-## Mains safety is external to firmware
-Firmware cannot make an unsafe mains installation safe. The repository does not provide a DIY mains wiring procedure; installation is assigned to a qualified electrician.
+## Safety and verification
+Mains-side work belongs to a qualified electrician. Example readings are illustrative; CI compilation does not prove sensor calibration, electrical safety or cloud delivery.
