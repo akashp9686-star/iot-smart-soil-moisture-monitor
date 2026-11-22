@@ -1,23 +1,24 @@
-# Project 06 — Testing and Verification
-## Software verification
-GitHub Actions now compiles the Arduino Uno PlatformIO environment. Check the Actions tab for the result associated with the latest commit. Compilation is not hardware validation.
+# Test Plan and Results — Project 03
 
-## Hardware/integration test record
-| Test | Status |
-|---|---|
-| ACS712 output and RMS readings | Not performed |
-| Calibration against reference current meter | Not performed |
-| LCD display operation | Not performed |
-| ESP-01 AT command / Wi-Fi association | Not performed |
-| ThingSpeak field upload | Not performed |
-| Mains installation inspection | Not performed; qualified electrician required |
+## Hosted/software verification
+GitHub Actions compiles the Arduino Uno firmware. Check the Actions tab for the latest commit's run. A successful compile does not validate sensor calibration or physical operation.
 
-## Procedure when safely assembled
-1. Verify low-voltage wiring and ESP-01 supply before powering.
-2. Confirm ACS712 variant and calibrate its zero offset and sensitivity against an appropriate reference.
-3. Verify LCD readings.
-4. Verify ESP-01 AT response and Wi-Fi association.
-5. Confirm ThingSpeak Field 1 and Field 2 receive actual values.
-6. Record instrument, board/module revisions, date, conditions and raw observations.
+## Hardware test record
+| Test | Status | Evidence to record when performed |
+|---|---|---|
+| Sensor raw ADC response in dry and wet conditions | Not performed | Raw readings, sensor model, soil condition |
+| Percentage calibration | Not performed | Dry/wet endpoint values and calculation |
+| Red LED below 30% | Not performed | Observed percentage and LED state |
+| Green LED at/above 30% | Not performed | Observed percentage and LED state |
+| ESP-01 AT response and Wi-Fi join | Not performed | Serial log, module firmware and baud rate |
+| ThingSpeak Field 1 update | Not performed | Channel graph or timestamped entry |
 
-Never fabricate results or claim physical testing without evidence. Mains-side work must be performed and inspected by a qualified electrician.
+## Safe test sequence
+1. Assemble only the low-voltage circuit and verify common ground and ESP-01 supply.
+2. Confirm the ESP-01 responds to AT at the configured baud rate.
+3. Record sensor ADC values in air/dry medium and in the intended wet medium; calibrate endpoints.
+4. Test LED behavior around the 30% threshold.
+5. Confirm the ThingSpeak channel receives Field 1 moisture values.
+6. Save serial logs and dated photographs as evidence.
+
+Do not change any status to passed until the test has actually been performed and evidence recorded.
