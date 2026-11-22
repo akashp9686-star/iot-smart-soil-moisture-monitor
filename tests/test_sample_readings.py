@@ -15,31 +15,20 @@ class SampleReadingsTests(unittest.TestCase):
         self.assertGreater(len(self.rows), 0)
         self.assertEqual(
             set(self.rows[0]),
-            {
-                "timestamp", "voltage_v", "current_a", "power_w",
-                "energy_kwh", "frequency_hz", "power_factor", "record_type"
-            },
+            {"timestamp", "current_rms_a", "estimated_apparent_power_va", "record_type"},
         )
         self.assertTrue(all(row["record_type"] == "illustrative" for row in self.rows))
 
-    def test_measurements_are_numeric_and_in_broad_ranges(self):
+    def test_estimates_are_numeric_and_nonnegative(self):
         for row in self.rows:
-            values = {key: float(row[key]) for key in (
-                "voltage_v", "current_a", "power_w", "energy_kwh",
-                "frequency_hz", "power_factor"
-            )}
-            self.assertTrue(all(math.isfinite(value) for value in values.values()))
-            self.assertGreaterEqual(values["voltage_v"], 0.0)
-            self.assertLessEqual(values["voltage_v"], 300.0)
-            self.assertGreaterEqual(values["current_a"], 0.0)
-            self.assertLessEqual(values["current_a"], 100.0)
-            self.assertGreaterEqual(values["power_w"], 0.0)
-            self.assertLessEqual(values["power_w"], 30000.0)
-            self.assertGreaterEqual(values["energy_kwh"], 0.0)
-            self.assertGreaterEqual(values["frequency_hz"], 0.0)
-            self.assertLessEqual(values["frequency_hz"], 100.0)
-            self.assertGreaterEqual(values["power_factor"], 0.0)
-            self.assertLessEqual(values["power_factor"], 1.0)
+            current = float(row["current_rms_a"])
+            apparent = float(row["estimated_apparent_power_va"])
+            self.assertTrue(math.isfinite(current))
+            self.assertTrue(math.isfinite(apparent))
+            self.assertGreaterEqual(current, 0.0)
+            self.assertLessEqual(current, 20.0)
+            self.assertGreaterEqual(apparent, 0.0)
+            self.assertLessEqual(apparent, 4600.0)
 
 
 if __name__ == "__main__":
