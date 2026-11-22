@@ -7,7 +7,7 @@
 
 A repository-first embedded systems project that documents and implements an ESP32-based energy-monitoring node. The firmware reads electrical parameters from a compatible PZEM-004T v3 module over UART and can optionally publish JSON telemetry to an MQTT broker.
 
-> **Verification scope:** The firmware has passed the configured hosted PlatformIO build and the sample-data tests when the linked workflow reports success. No physical ESP32/PZEM assembly, mains installation, calibration, reference-meter comparison, Wi-Fi field test or live MQTT broker test is claimed. Example CSV readings and JSON payload values are illustrative, not measured observations.
+> **Verification scope:** The latest recorded GitHub Actions run (#10) completed successfully, including both PlatformIO firmware configurations (MQTT disabled and enabled) and the Python sample-data tests. No physical ESP32/PZEM assembly, mains installation, calibration, reference-meter comparison, Wi-Fi field test or live MQTT broker test is claimed. Example CSV readings and JSON payload values are illustrative, not measured observations.
 
 ## Project objectives
 
@@ -97,13 +97,14 @@ The actual `include/config.h` is ignored by Git. Never commit Wi-Fi or MQTT cred
 
 ## Automated verification
 
-The GitHub Actions workflow checks two firmware configurations:
-- MQTT disabled (default)
-- MQTT enabled (compile-time path)
+The latest recorded workflow run (#10) passed all steps:
+- MQTT-disabled firmware compilation
+- MQTT-enabled firmware compilation
+- Python sample-data unit tests (2 tests)
 
-It also runs Python unit tests for the sample CSV schema, illustrative-data label and broad numeric ranges. A successful build verifies compilation for the configured PlatformIO target; it does not verify physical measurements, wiring, electrical safety, MQTT delivery or calibration.
+[View workflow run #10](https://github.com/akashp9686-star/smart-home-energy-meter/actions/runs/45000141024) · [View all workflow runs](https://github.com/akashp9686-star/smart-home-energy-meter/actions)
 
-[View workflow runs](https://github.com/akashp9686-star/smart-home-energy-meter/actions)
+A successful build verifies compilation for the configured PlatformIO target; it does not verify physical measurements, wiring, electrical safety, MQTT delivery or calibration.
 
 ## Safety notice
 
@@ -133,9 +134,9 @@ Read [docs/safety.md](docs/safety.md) before any hardware work.
 |---|---|
 | Repository structure and documentation | Complete |
 | Firmware source and PlatformIO target | Included |
-| MQTT optional implementation | Included; compile path checked by CI |
-| Sample-data tests | Included |
-| Hosted firmware build | Check live Actions badge/workflow |
+| MQTT optional implementation | Included; both compile-time paths passed CI |
+| Sample-data tests | Passed (2 tests) |
+| Hosted firmware build | Passed — GitHub Actions run #10 |
 | Physical sensor operation and calibration | Not performed |
 | Mains installation and inspection | Not performed |
 | Live MQTT delivery | Not performed |
