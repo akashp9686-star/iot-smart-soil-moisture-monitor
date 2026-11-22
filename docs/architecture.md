@@ -1,13 +1,12 @@
-# Project 06 — System Architecture
-Glowlogics handbook architecture: ACS712-20A senses current; Arduino Uno samples its analog output at A1 and estimates RMS current; the Uno calculates approximate apparent power using an assumed 220 V nominal supply; a 16x2 I2C LCD displays the values; an ESP8266 ESP-01 uses AT commands over SoftwareSerial to upload current and apparent-power fields to ThingSpeak.
+# System Architecture — Project 03
 
 ```mermaid
 flowchart LR
-  A[AC load current path] --> B[ACS712-20A]
-  B -->|Analog OUT A1| C[Arduino Uno]
-  C --> D[16x2 I2C LCD]
-  C -->|SoftwareSerial D10/D11| E[ESP8266 ESP-01]
-  E -->|Wi-Fi / HTTP| F[ThingSpeak]
+  A[Soil moisture sensor AO] -->|Analog A0| B[Arduino Uno R3]
+  B --> C[Red LED D6: dry]
+  B --> D[Green LED D7: adequate moisture]
+  B <-->|UART AT commands D10/D11 via level conversion| E[ESP8266 ESP-01]
+  E -->|Wi-Fi / HTTP| F[ThingSpeak Field 1]
 ```
 
-The AC path is conceptual only. Qualified-person installation, isolation, enclosure and inspection are mandatory. Apparent power is an estimate (I x assumed 220 V), not measured active power.
+The Uno samples the analog soil sensor, maps the reading to a calibrated percentage and applies the 30% example threshold. The ESP-01 provides Wi-Fi using AT commands; the Uno initiates the ThingSpeak update. The two LEDs provide local status indication.
