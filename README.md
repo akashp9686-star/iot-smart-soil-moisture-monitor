@@ -4,7 +4,7 @@
 
 ## Problem statement
 
-Monitor soil moisture level in real time and upload readings to ThingSpeak. A red LED alerts when soil is too dry, while a green LED indicates adequate moisture. The uploaded moisture trend can help inform irrigation decisions. The system uses an Arduino Uno to read the analog soil sensor and an ESP8266 ESP-01 controlled through UART AT commands for Wi-Fi connectivity.
+Monitor soil moisture level in real time and upload readings to ThingSpeak. An RGB LED or buzzer alerts when soil is too dry. Data trends help automate irrigation decisions. This project uses an Arduino Uno paired with an ESP8266 module via AT commands for Wi-Fi.\n\n**Implementation choice from the handbook component list:** this repository uses the listed red LED (D6) and green LED (D7) pair, rather than an RGB LED or buzzer.
 
 ## Exact handbook hardware
 
