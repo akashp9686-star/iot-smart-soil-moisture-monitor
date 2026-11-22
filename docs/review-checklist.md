@@ -1,28 +1,27 @@
-# Repository Review Checklist
+# Repository Review Checklist — Handbook Project 06
 
 ## Repository contents
-- [x] README and project abstract
-- [x] Architecture and component inventory
-- [x] Firmware source and PlatformIO configuration
-- [x] Safe example configuration with no credentials
-- [x] Wiring interface notes and separate mains safety guidance
+- [x] README and abstract aligned to Arduino Uno + ACS712 + ESP-01 + LCD + ThingSpeak
+- [x] Architecture, component inventory and pin map
+- [x] Firmware source and Uno PlatformIO configuration
+- [x] Credential-safe example configuration
+- [x] Wiring notes and mains safety guidance
 - [x] Methodology, research references and limitations
-- [x] MQTT setup guide
-- [x] Illustrative CSV and Python tests
+- [x] ThingSpeak field mapping
+- [x] Illustrative current/apparent-power CSV and Python tests
 - [x] GitHub Actions workflow
 
 ## Software verification
-- [x] Latest confirmed successful GitHub Actions firmware build passes (run #13)
-- [x] MQTT-disabled firmware compilation passes
-- [x] MQTT-enabled firmware compilation passes
-- [x] Sample-data unit tests pass (2 tests)
+- [ ] Latest Project 06 Uno build reviewed and passing
+- [ ] Latest sample-data tests reviewed and passing
 
-## Physical validation (not claimed by this repository package)
-- [ ] Confirm exact PZEM revision and hardware compatibility
-- [ ] Qualified mains installation and inspection
-- [ ] UART communication test
-- [ ] Reference-instrument comparison
-- [ ] MQTT delivery test, if enabled
-- [ ] Genuine evidence and completed results record
+## Physical validation (not claimed as completed)
+- [ ] Confirm ACS712-20A module and calibrate against reference instrument
+- [ ] Verify 10µF capacitor placement from exact module schematic
+- [ ] Test LCD and I2C address
+- [ ] Verify ESP-01 AT firmware, UART level conversion and Wi-Fi association
+- [ ] Confirm ThingSpeak Field 1 and Field 2 uploads
+- [ ] Qualified electrician installation and inspection
+- [ ] Add genuine photographs and completed results record
 
-A checked repository-content or software-verification item means the corresponding file is included or the stated automated check passed. It does not mean the hardware has been assembled, tested or certified.
+A repository checklist does not certify hardware assembly, calibration, mains safety or cloud operation.
