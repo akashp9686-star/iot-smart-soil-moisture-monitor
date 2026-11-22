@@ -1,27 +1,13 @@
-# Project Report — Glowlogics Project 06: Smart Home Energy Meter
+# Project Report — Smart Soil Moisture Monitor
 
-## Objective
-Build a current-monitoring prototype using an Arduino Uno, ACS712-20A current sensor, ESP8266 ESP-01 Wi-Fi module, 16x2 I2C LCD and ThingSpeak cloud channel.
+## Problem statement
+Monitor soil moisture level in real time and upload readings to ThingSpeak. A red LED or buzzer alerts when soil is too dry; this implementation follows the handbook's red and green LED option. Moisture trends can inform irrigation decisions.
 
-## System
-The ACS712 analog output is sampled by the Uno at A1. The firmware calculates RMS current from 1,000 samples using a 2.5V midpoint offset and 200µs sample spacing. It displays estimated current and apparent power locally. The ESP-01 receives AT commands over SoftwareSerial and sends ThingSpeak updates.
+## Proposed solution
+An Arduino Uno reads an analog soil moisture sensor on A0. It converts the reading to a percentage using calibrated dry/wet endpoints. Below 30%, the red LED on D6 is enabled; otherwise the green LED on D7 is enabled. An ESP8266 ESP-01 module, controlled by AT commands over a level-shifted UART connection on D10/D11, uploads the percentage to ThingSpeak Field 1.
 
-## Hardware and interface summary
-- ACS712 VCC/GND/OUT -> Uno 5V/GND/A1.
-- LCD SDA/SCL -> Uno A4/A5.
-- ESP-01 TX -> Uno D10; Uno D11 -> ESP-01 RX through level conversion.
-- ESP-01 requires a stable regulated 3.3V supply.
-- Handbook component list includes a 10µF capacitor; verify exact placement and polarity from the sensor-board documentation before assembly.
-- Mains-side current path must be installed and inspected by a qualified electrician.
+## Expected outcome
+A locally visible dry/moist status and a cloud trend of moisture readings. Actual accuracy depends on calibration and sensor type.
 
-## Cloud data
-ThingSpeak Field 1 is RMS current (A). Field 2 is estimated apparent power (VA). The upload interval is 30 seconds.
-
-## Measurement limitations
-The firmware assumes nominal 220V and estimates apparent power as I × 220V. It does not sample voltage or power factor, so it does not measure true active power or billing-grade energy. ACS712 offset, sensitivity, ADC reference and sampling method require calibration.
-
-## Verification status
-The source is configured for the Arduino Uno PlatformIO environment. Compilation should be checked in GitHub Actions. No physical sensor calibration, LCD test, ESP-01 Wi-Fi association, ThingSpeak upload or mains installation is claimed as completed. Example CSV values are illustrative only.
-
-## Safety
-Mains voltage can cause fatal shock or fire. Never place mains wiring on a breadboard or expose live conductors. A qualified electrician must design and install the isolated, fused and enclosed mains-side fixture.
+## Current verification
+Hosted firmware compilation can verify source-level compatibility. Physical sensing, calibration, LEDs, Wi-Fi and ThingSpeak tests have not been performed and are not represented as passed.
